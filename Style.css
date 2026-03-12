@@ -1,0 +1,188 @@
+:root {
+    --bg: #F7F8F0;
+    --light-blue: #9CD5FF;
+    --med-blue: #7AAACE;
+    --dark-blue: #355872;
+    --white: #ffffff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+body { 
+    font-family: 'Poppins', sans-serif; 
+    background-color: var(--bg); 
+    color: var(--dark-blue); 
+}
+
+/* Glassmorphism Nav */
+nav { 
+    display: flex; justify-content: space-between; align-items: center; 
+    padding: 20px 10%; background: rgba(255, 255, 255, 0.8); 
+    backdrop-filter: blur(10px); position: fixed; width: 100%; top: 0; z-index: 1000;
+}
+
+nav ul { display: flex; list-style: none; }
+nav ul li { margin-left: 25px; }
+nav ul li a { 
+    text-decoration: none; color: var(--dark-blue); font-weight: 600; 
+    transition: 0.3s; position: relative;
+}
+
+nav ul li a:hover { color: var(--med-blue); }
+nav ul li a::after {
+    content: ''; position: absolute; width: 0; height: 2px; 
+    bottom: -5px; left: 0; background: var(--med-blue); transition: 0.3s;
+}
+nav ul li a:hover::after { width: 100%; }
+
+/* Hero */
+.hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
+.profile-img img { 
+    width: 160px; height: 160px; border-radius: 50%; 
+    border: 5px solid var(--white); box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transition: 0.5s; 
+}
+.profile-img img:hover { transform: scale(1.1) rotate(5deg); }
+
+.btn { 
+    margin-top: 25px; padding: 12px 30px; background: var(--dark-blue); 
+    color: var(--white); text-decoration: none; border-radius: 50px; 
+    display: inline-block; transition: 0.3s; 
+}
+.btn:hover { background: var(--med-blue); transform: translateY(-5px); }
+
+/* Experience Timeline */
+.container { padding: 100px 10%; }
+.section-title { font-size: 2.5rem; margin-bottom: 40px; }
+.timeline { border-left: 3px solid var(--med-blue); padding-left: 30px; }
+.item { margin-bottom: 40px; transition: 0.3s; padding: 15px; border-radius: 10px; }
+.item:hover { background: rgba(156, 213, 255, 0.1); }
+.item h3 { color: var(--dark-blue); }
+.item strong { color: var(--dark-blue); }
+
+/* Skill Cards Animation */
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+.skill-card { 
+    background: var(--white); padding: 40px; border-radius: 20px; 
+    text-align: center; transition: 0.4s; cursor: pointer;
+}
+.skill-card:hover { 
+    transform: translateY(-15px); 
+    box-shadow: 0 15px 30px rgba(53, 88, 114, 0.1);
+}
+.skill-card i { font-size: 3rem; color: var(--med-blue); margin-bottom: 15px; }
+
+/* Footer */
+footer { background: var(--dark-blue); color: var(--white); padding: 60px 10%; text-align: center; }
+footer p { margin: 10px 0; }
+
+/* Styling for the clickable titles */
+.expandable-title {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: var(--transition);
+}
+
+.expandable-title:hover {
+    color: var(--accent-medium);
+}
+
+.expandable-title i {
+    font-size: 0.9rem;
+    transition: transform 0.3s ease;
+}
+
+/* Initially hide the responsibilities */
+.details-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+    background: rgba(156, 213, 255, 0.05);
+    border-radius: 8px;
+}
+
+/* When active (shown) */
+.details-content.active {
+    max-height: 1000px; /* Large enough for content */
+    transition: max-height 0.5s ease-in-out;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+/* Rotate icon when active */
+.expandable-title.active i {
+    transform: rotate(180deg);
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+
+@media (max-width: 768px) {
+    /* 1. Navigation: Stack links or hide them for a burger menu */
+    nav {
+        padding: 1rem 5%;
+        flex-direction: column;
+    }
+    
+    nav ul {
+        margin-top: 15px;
+        gap: 15px;
+        flex-wrap: wrap; /* Allows links to wrap if there are many */
+        justify-content: center;
+    }
+
+    nav ul li {
+        margin-left: 0;
+        font-size: 14px;
+    }
+
+    /* 2. Hero Section: Reduce text sizes */
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+        padding: 0 10%;
+    }
+
+    /* 3. Containers: Reduce side padding */
+    .container {
+        padding: 60px 5%;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    /* 4. Experience/Timeline: Shift the line for more space */
+    .timeline {
+        padding-left: 20px;
+    }
+
+    .item::before {
+        left: -29px; /* Adjusting the dot position */
+    }
+
+    /* 5. Skills Grid: Force 1 column on very small phones */
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .skill-card {
+        padding: 25px;
+    }
+}
+
+/* Fix for small phones (iPhone SE, etc.) */
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .btn {
+        width: 100%; /* Make button full width on tiny screens */
+        text-align: center;
+    }
+}
